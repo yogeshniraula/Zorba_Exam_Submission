@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.example.xml_based.entity.Subject" table="subject">
+        <!--id we use to declare primary key of a table-->
+        <id name="subjectId" column="subject_id">
+            <generator class="increment"/>
+        </id>
+        <property name="subjectName" column="sub_name" length="255" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>
