@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-init-method="init" default-destroy-method="destroy">
+
+    <!--autowire-->
+
+    <bean name="laptop" class="org.example.D_xml_based.Laptop" autowire="byName">
+        <property name="laptopId" value="1"/>
+    </bean>
+    <!--Constructor dDI-->
+
+    <bean name="RentOfOneBHKFlat" class="org.example.DI_xml_based.RentOfOneBHKFlat"/>
+    <bean name="RentOfFlat" class="org.example.D_xml_based.RentOfFlat">
+        <constructor-arg name="RentOfFlat" ref="rentId"/>
+    </bean>
+
+    <!--    setter di-->
+    <bean name="RentOfFlat" class="org.example.DI_xml_based.RentOfFlat"/>
+    <bean name="“RentOfTwoBHKFlat" class="org.example.D_xml_based.Logic">
+        <property name="balcony" value = "true"/>
+    </bean>
+
+    <!--    setter di-->
+    <bean name="RentOfFlat" class="org.example.DI_xml_based.RentOfFlat"/>
+    <bean name="RentOfThreeBHKFlat" class="org.example.D_xml_based.RentOfThreeBHKFlat">
+        <property name="balcony" value = "true"/>
+    </bean>
+
+    <bean class="org.example.D_xml_based.SelfOwnedFlat" autowire = "byName"/>
+    <bean class="org.example.D_xml_based.RentFlat" />
+    <bean class="org.example.D_xml_based.RentOfOneBHKFlat" />
+    <bean class="org.example.D_xml_based.RentOfThreeBHKFlat"/>
+    <bean class="org.example.D_xml_based.RentOfTwoBHKFlat"/>
+
+    <bean class="org.example.D_xml_based.SelfOwnedOneBHKFlat"/>
+    <bean class="org.example.D_xml_based.SelfOwnedTwoBHKFlat"/>
+    <bean class="org.example.D_xml_based.SelfOwnedThreeBHKFlat"/>
+
+</beans>
