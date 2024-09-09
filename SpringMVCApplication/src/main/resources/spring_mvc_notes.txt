@@ -1,0 +1,8 @@
+MVC - architectural design pattern
+MVC (Model View Controller)
+
+_________________________________________________________
+
+Spring MVC application: Dispatcher Servlet is the Front Controller, which helps to
+perform very important operations like when we send a request, it helps to identify the
+suitable org.springMVC.controller and when response back it helps to locate the jsp/html pages as well.
