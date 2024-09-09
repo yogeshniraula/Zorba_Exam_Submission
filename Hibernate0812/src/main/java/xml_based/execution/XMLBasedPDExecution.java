@@ -99,7 +99,11 @@ public class XMLBasedPDExecution {
 
             Session session1 = sessionFactory.openSession();
 
-            try {
+            try (FileInputStream fileInputStream = new FileInputStream(file);
+                 Workbook workbook = new XSSFWorkbook(fileInputStream)){
+                XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fileInputStream);
+                XSSFSheet xssfSheet1 = xssfWorkbook.getSheetAt(1);
+
                 Employee retrievedEmployee = session1.get(Employee.class, 1);
                 System.out.println(retrievedEmployee);
                 Set<Skill> retrievedSkill = retrievedEmployee.getSkills();

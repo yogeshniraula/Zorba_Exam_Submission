@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,9 +13,9 @@
       <th>User Email</th>
     </tr>
     <tr>
-      <td>${studObj.studId}</td>
-      <td>${studObj.studName}</td>
-      <td>${studObj.studAddress}</td>
+      <td>${userObj.userId}</td>
+      <td>${userObj.userName}</td>
+      <td>${userObj.userEmail}</td>
     </tr>
   </table>
 </body>

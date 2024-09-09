@@ -3,6 +3,7 @@ package org.springmvc.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springmvc.entity.User;
@@ -10,8 +11,10 @@ import org.springmvc.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+
 public class UserDAOImpl implements UserDAO {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     //constructor DI
     public UserDAOImpl(SessionFactory sessionFactory) {

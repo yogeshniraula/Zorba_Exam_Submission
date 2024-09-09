@@ -11,7 +11,8 @@
     <annotation-driven/>
 
     <!-- This helps to scan the entire package and find out the related controller from it -->
-    <context:component-scan base-package="org.springmvc"/>
+<!--    <context:component-scan base-package="org.springmvc"/>-->
+<!--    <beans:bean id = "UserController" class = "org.springmvc.controller.UserController"/>-->
 
     <!--Helps to identify/locate the view (JSP/HTML)-->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,15 +44,15 @@
             </beans:list>
         </beans:property>
     </beans:bean>
-
-    <beans:bean name="userDAO" class="org.springmvc.dao.UserDAOImplDAOImpl">
-        <beans:constructor-arg value="sessionFactory" ref="hibernateSessionFactory"/>
+    <beans:bean name="userDAOImpl" class="org.springmvc.dao.UserDAOImpl">
+        <beans:constructor-arg value="sessionFactory"/>
     </beans:bean>
 
     <!--Configure Spring Transaction manager-->
     <beans:bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <beans:property name="sessionFactory" ref="hibernateSessionFactory"/>
     </beans:bean>
+
 
     <!--Enable @Transactional to handle all the operation like commit and rollback-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
