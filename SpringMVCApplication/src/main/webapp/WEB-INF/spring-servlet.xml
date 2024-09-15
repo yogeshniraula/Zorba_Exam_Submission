@@ -22,6 +22,10 @@
         <beans:property name="username" value="root" />
         <beans:property name="password" value="Troyguy2123!" />
     </beans:bean>
+
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="5000000"/> <!-- Set max file size -->
+    </beans:bean>
     <!-- Database Configuration: mySQL -->
 <!--    <beans:bean name = "datasource" class = "org.apache.common.dbcp"></beans:bean>-->
 

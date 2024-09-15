@@ -1,40 +1,59 @@
 package org.springMVC.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springMVC.entity.InventoryCategory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 
-@Repository
+
 public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public Optional<InventoryCategory> findByCategoryName(String categoryName) {
-        try (Session session = sessionFactory.openSession()) {
-            InventoryCategory category = session.createQuery("FROM InventoryCategory WHERE categoryName = :categoryName", InventoryCategory.class)
-                    .setParameter("categoryName", categoryName)
-                    .uniqueResult();
-            return Optional.ofNullable(category);
+    public Optional<InventoryCategory> findCategoryByName(String categoryName) {
+        InventoryCategory inventoryCategory = new InventoryCategory();
+        Session session = this.sessionFactory.openSession();
+        String inventoryCategoryQuery = "FROM InventoryCategory i where i.categoryName = :categoryName";
+        try {
+            Query query = session.createQuery(inventoryCategoryQuery);
+            query.setString("categoryName", categoryName);
+            inventoryCategory = (InventoryCategory) query.uniqueResult();
+            return Optional.ofNullable(inventoryCategory);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
+        return Optional.of(inventoryCategory);
     }
 
     @Override
-    public void saveCategory(InventoryCategory category) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.save(category);
-            session.getTransaction().commit();
+    public String saveCategory(Optional<InventoryCategory> category) {
+        String res = "";
+        Session session = this.sessionFactory.openSession();
+        //Transaction tx = null;
+        try {
+            //tx = session.beginTransaction();
+            session.persist(category);
+            //tx.commit();
+            res = "Data Saved Successfully...";
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            //tx.rollback();
+            res = "Data Not Saved";
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
+        return res;
     }
 }
 

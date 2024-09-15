@@ -3,6 +3,7 @@ package org.springMVC.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springMVC.model.UserModel;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springMVC.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -23,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public String saveUser(User user) {
+    public String saveUser(UserModel user) {
         String res = "";
         Session session = this.sessionFactory.openSession();
         //Transaction tx = null;
@@ -79,5 +81,15 @@ public class UserDAOImpl implements UserDAO {
             }
         }
         return users;
+    }
+
+    @Override
+    public Optional<Object> findByUsernameAndPassword(String email, String password, String role) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM User WHERE email = :username AND password = :password AND role = :vendor");
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        query.setParameter("role", role);
+        return (Optional<Object>) query.uniqueResult();
     }
 }

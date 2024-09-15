@@ -6,23 +6,24 @@ import javax.persistence.*;
 @Table(name = "inventory")
 public class Inventory {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "inventory_name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private int quantity;
+    @Column(name = "inventory_quantity", nullable = false)
+    private Double quantity;
 
-    @Column(nullable = false)
+    @Column(name = "inventory_price", nullable = false)
     private double price;
 
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "inventory_description", columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne
@@ -34,7 +35,7 @@ public class Inventory {
 
     public Inventory(String name, int quantity, double price, String imageUrl, String description, InventoryCategory category) {
         this.name = name;
-        this.quantity = quantity;
+        this.quantity = (double) quantity;
         this.price = price;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -57,11 +58,11 @@ public class Inventory {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 

@@ -23,17 +23,17 @@ public class VendorController {
 
     @PostMapping("/login")
     public String login(
-            @RequestParam("username") String username,
+            @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("role") String role,
             Model model) {
 
-        if (userService.validateUser(username, password, role).isPresent()) {
+        if (userService.validateUser(email, password, role).isPresent()) {
             // Redirect to add inventory page on successful login
             return "redirect:/addInventory";
         } else {
             // Redirect to error page if login fails
-            model.addAttribute("errorMessage", "Invalid username, password, or role.");
+            model.addAttribute("errorMessage", "Invalid email, password, or role.");
             return "login";
         }
     }

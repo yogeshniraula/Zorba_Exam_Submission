@@ -7,6 +7,7 @@ import org.springMVC.entity.InventoryCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public class VendorService {
 
@@ -18,9 +19,9 @@ public class VendorService {
 
     @Transactional
     public void addInventory(String categoryName, String name, int quantity, double price, String imageUrl, String description) {
-        InventoryCategory category = categoryDAO.findByCategoryName(categoryName).orElseGet(() -> {
+        InventoryCategory category = categoryDAO.findCategoryByName(categoryName).orElseGet(() -> {
             InventoryCategory newCategory = new InventoryCategory(categoryName);
-            categoryDAO.saveCategory(newCategory);
+            categoryDAO.saveCategory(Optional.of(newCategory));
             return newCategory;
         });
 

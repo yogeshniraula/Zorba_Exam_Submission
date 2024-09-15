@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Configuration SYSTEM "log4j2.dtd">
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+
+        <!-- File Appender -->
+        <!--        <File name="fileAppender" fileName="/Users/abhishekgayen/Zorbra_Softed/1015_Batch/Java_1015_Batch_Class_Notes/SpringMVCApplication/logs/mvc.log">-->
+        <!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />-->
+        <!--        </File>-->
+
+        <!-- Rolling File Appender: helps to create file date wise -->
+        <RollingFile name="rollingFileAppender"
+                     fileName="SpringMVCApplication/logs"
+                     filePattern="SpringMVCApplication/logs/mvc-%d{yyyy-MM-dd-HH}.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <!--Help us to trigger log in separate files based on the date-->
+                <!--Work/Generate new file 12 horus interval-->
+                <TimeBasedTriggeringPolicy interval="12" modulate="true"/>
+            </Policies>
+            <!--Optional fields, managing old log file,
+            7 stands a week file  will be managed and rest will be removed-->
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="consoleAppender"/>
+            <!--            <AppenderRef ref="fileAppender"/>-->
+            <AppenderRef ref="rollingFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

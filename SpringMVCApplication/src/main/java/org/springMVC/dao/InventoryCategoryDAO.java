@@ -5,6 +5,8 @@ import org.springMVC.entity.InventoryCategory;
 import java.util.Optional;
 
 public interface InventoryCategoryDAO {
-    Optional<InventoryCategory> findByCategoryName(String categoryName);
-    void saveCategory(InventoryCategory category);
+    Optional<InventoryCategory> findCategoryByName(String categoryName);
+    String saveCategory(Optional<InventoryCategory> category);
+
+
 }

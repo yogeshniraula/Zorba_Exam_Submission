@@ -16,4 +16,6 @@ public class Student {
     private String studName;
     @Column(name = "stud_address")
     private String studAddress;
+    @Lob
+    private byte[] studImage;
 }
