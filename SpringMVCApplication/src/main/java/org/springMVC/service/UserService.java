@@ -92,4 +92,12 @@ public class UserService {
         }
         return responseMsg;
     }
+
+    public Optional<Object> findByRole(String role) {
+        return userDAO.findByRole(role);
+    }
+
+    public void deleteByUserId(int userId) {
+        userDAO.deleteUserById(userId);
+    }
 }

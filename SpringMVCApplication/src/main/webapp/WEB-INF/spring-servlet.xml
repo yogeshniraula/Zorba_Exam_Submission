@@ -18,10 +18,24 @@
     <!-- Database Configuration: mySQL -->
     <beans:bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
         <beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <beans:property name="url" value="jdbc:mysql://localhost:3306/zorba_submissions" />
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/inventory_vendor" />
         <beans:property name="username" value="root" />
         <beans:property name="password" value="Troyguy2123!" />
     </beans:bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="org.springMVC.model"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="maxUploadSize" value="5000000"/> <!-- Set max file size -->

@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springMVC.entity.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,8 @@ import java.util.Optional;
 @Component
 public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     //constructor DI
     public UserDAOImpl(SessionFactory sessionFactory) {
@@ -92,4 +97,30 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("role", role);
         return (Optional<Object>) query.uniqueResult();
     }
+
+    @Override
+    @Transactional
+    public void deleteUserById(Integer userId){
+
+        User user = entityManager.find(User.class, userId);
+
+        // If user exists, delete it
+        if (user != null) {
+            entityManager.remove(user);
+        }
+
+
+    }
+
+    @Override
+    public Optional<Object> findByRole(String role){
+        // Create a query to fetch users by role
+        String hql = "FROM User WHERE role = :role";
+        TypedQuery<User> query = entityManager.createQuery(hql, User.class);
+        query.setParameter("role", role);
+
+        // Return the list of users
+        return Optional.ofNullable(query.getResultList());
+    };
+
 }

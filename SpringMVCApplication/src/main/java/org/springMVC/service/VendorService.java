@@ -28,4 +28,5 @@ public class VendorService {
         Inventory inventory = new Inventory(name, quantity, price, imageUrl, description, category);
         inventoryDAO.saveInventory(inventory);
     }
+    
 }
