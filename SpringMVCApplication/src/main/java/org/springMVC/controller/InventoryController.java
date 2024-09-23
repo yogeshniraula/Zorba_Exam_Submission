@@ -59,12 +59,12 @@ public class InventoryController {
                 String category = categoryCell.getStringCellValue();
                 //InventoryCategory category =  (InventoryCategory) cellValue;
                 String name = currentRow.getCell(1).getStringCellValue();
-                Double quantity = currentRow.getCell(2).getNumericCellValue();
+                int quantity = (int) currentRow.getCell(2).getNumericCellValue();
                 Double price = currentRow.getCell(3).getNumericCellValue();
                 String description = currentRow.getCell(4).getStringCellValue();
 
                 // Create an entity (Inventory in this case)
-                Inventory inventory = new Inventory();
+                InventoryModel inventory = new InventoryModel();
                 inventory.setName(name);
                 inventory.setCategory(inventoryService.processCategory(category));
                 inventory.setQuantity(quantity);
@@ -90,7 +90,6 @@ public class InventoryController {
         List<InventoryModel> inventory = inventoryService.getAllInventory();
         model.addAttribute("inventory", inventory);
         return "viewInventory.jsp";
-
     }
 }
 

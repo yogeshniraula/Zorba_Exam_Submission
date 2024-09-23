@@ -64,7 +64,7 @@
             <input type="text" id="password" name="password" required>
 
             <input type="submit" value="Submit">
-            <a href="${pageContext.request.contextPath}/success">
+            <a href="${pageContext.request.contextPath}/userConfirmation">
         </form>
     </div>
 </body>

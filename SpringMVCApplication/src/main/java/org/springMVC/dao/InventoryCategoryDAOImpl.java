@@ -1,18 +1,26 @@
 package org.springMVC.dao;
 
-import org.hibernate.Query;
+//import org.hibernate.Query;
+import org.hibernate.query.Query; // Correct import for Hibernate 5.x
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springMVC.entity.Inventory;
 import org.springMVC.entity.InventoryCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
+@Repository
 public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    InventoryCategory inventoryCategory;
+    @Autowired
+    Inventory inventory;
 
     @Override
     public Optional<InventoryCategory> findCategoryByName(String categoryName) {
@@ -21,7 +29,7 @@ public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
         String inventoryCategoryQuery = "FROM InventoryCategory i where i.categoryName = :categoryName";
         try {
             Query query = session.createQuery(inventoryCategoryQuery);
-            query.setString("categoryName", categoryName);
+           // query.setString("categoryName", categoryName);
             inventoryCategory = (InventoryCategory) query.uniqueResult();
             return Optional.ofNullable(inventoryCategory);
         } catch (Exception e) {

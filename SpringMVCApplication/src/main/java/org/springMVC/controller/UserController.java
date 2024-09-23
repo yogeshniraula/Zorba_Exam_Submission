@@ -3,13 +3,14 @@ package org.springMVC.controller;
 
 import org.springMVC.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springMVC.service.UserService;
 
-@RestController
-@RequestMapping(path = "/user")
+@Controller
+
 public class UserController {
     //http://localhost:8080/context_path/user/test
 //    public ModelAndView test() {
@@ -30,7 +31,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/conf")
+    @PostMapping("/userConfirmation")
     public String saveUser(@ModelAttribute UserModel userModel, Model model) {
         String response = userService.saveUserData(userModel);
         model.addAttribute("message", response);

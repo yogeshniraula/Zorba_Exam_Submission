@@ -4,13 +4,29 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 @Data
+@Getter
+@Setter
 @Component
 public class InventoryModel {
-    private Long id;
+
+    private int id;
     private String name;
-    private Double quantity;
+    private int quantity;
     private double price;
     private String imageUrl;
     private String description;
-    private Long categoryId; // Changed to Long to match the InventoryCategory's ID
+    private Long categoryId;
+    private InventoryCategoryModel category;
+    private final String categoryName = category.getCategoryName();
+    public InventoryModel(){
+    };
+
+    public InventoryModel(int id, String name, int quantity, Double price, String imageUrl, String description, InventoryCategoryModel category) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.description = description;
+    }
 }

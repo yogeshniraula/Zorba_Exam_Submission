@@ -1,6 +1,6 @@
 package org.springMVC.dao;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springMVC.entity.Inventory;
@@ -17,7 +17,7 @@ public class InventoryDAOImpl implements InventoryDAO {
     private SessionFactory sessionFactory;
 
     //constructor DI
-    public void StudDAOImpl(SessionFactory sessionFactory) {
+    public void inventoryDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -45,13 +45,14 @@ public class InventoryDAOImpl implements InventoryDAO {
     }
 
     @Override
-    public Inventory getInventoryById(Integer inventoryId) {
-        Inventory inventory = new Inventory();
+    public Inventory getInventoryById(int inventoryId) {
+
         Session session = this.sessionFactory.openSession();
         String inventoryQuery = "FROM Inventory s where s.studId = :inventoryId";
+        Inventory inventory = new Inventory(inventoryId);
         try {
             Query query = session.createQuery(inventoryQuery);
-            query.setInteger("inventoryId", inventoryId);
+            //query.setInteger("inventoryId", inventoryId);
             inventory = (Inventory) query.uniqueResult();
         } catch (Exception e) {
             System.err.println(e.getMessage());

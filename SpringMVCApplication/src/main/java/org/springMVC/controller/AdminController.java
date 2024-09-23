@@ -2,26 +2,31 @@ package org.springMVC.controller;
 
 import org.springMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
+@Controller
 public class AdminController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/adminLogin")
-    public String showLoginPage() {
-        return "adminLogin";
+    public ModelAndView showLoginPage() {
+        ModelAndView modelAndView = new ModelAndView("adminLogin");
+
+        return modelAndView;
     }
 
-    @PostMapping("/login")
-    public String login(
+    @PostMapping("/adminLogged")
+    public String adminLogin(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("role") String role,

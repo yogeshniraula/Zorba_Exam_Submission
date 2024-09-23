@@ -1,8 +1,9 @@
 package org.springMVC.dao;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springMVC.entity.Student;
@@ -10,6 +11,7 @@ import org.springMVC.entity.Student;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class StudDAOImpl implements StudentDAO {
     private SessionFactory sessionFactory;
 
@@ -48,7 +50,7 @@ public class StudDAOImpl implements StudentDAO {
         String studentQuery = "FROM Student s where s.studId = :studentId";
         try {
             Query query = session.createQuery(studentQuery);
-            query.setInteger("studentId", studentId);
+            //query.setInteger("studentId", studentId);
             student = (Student) query.uniqueResult();
         } catch (Exception e) {
             System.err.println(e.getMessage());

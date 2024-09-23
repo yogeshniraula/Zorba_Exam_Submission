@@ -1,10 +1,11 @@
 package org.springMVC.dao;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springMVC.model.UserModel;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springMVC.entity.User;
@@ -17,7 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Component
+@Repository
+
 public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionFactory;
     @PersistenceContext
@@ -58,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
         String userQuery = "FROM User s where s.userId = :userId";
         try {
             Query query = session.createQuery(userQuery);
-            query.setInteger("userId", userId);
+            //query.setInteger("userId", userId);
             user = (User) query.uniqueResult();
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -110,6 +112,11 @@ public class UserDAOImpl implements UserDAO {
         }
 
 
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return null;
     }
 
     @Override

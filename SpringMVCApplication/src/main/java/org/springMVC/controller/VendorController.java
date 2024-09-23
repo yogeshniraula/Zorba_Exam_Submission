@@ -1,6 +1,9 @@
 package org.springMVC.controller;
 
+import org.springMVC.entity.Inventory;
+import org.springMVC.model.InventoryModel;
 import org.springMVC.service.UserService;
+import org.springMVC.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +18,14 @@ public class VendorController {
     // This is a hardcoded example; in real-world, fetch from the database
     @Autowired
     private UserService userService;
+    @Autowired
+    private VendorService vendorService;
+    @Autowired
+    InventoryModel inventory;
 
-    @GetMapping("/login")
+    @GetMapping("/vendorLogin")
     public String showLoginPage() {
-        return "login";
+        return "vendorLogin";
     }
 
     @PostMapping("/login")
@@ -34,7 +41,7 @@ public class VendorController {
         } else {
             // Redirect to error page if login fails
             model.addAttribute("errorMessage", "Invalid email, password, or role.");
-            return "login";
+            return "vendorLogin";
         }
     }
 
@@ -61,9 +68,8 @@ public class VendorController {
             return "addInventory";
         }
 
-        // Proceed with saving the inventory data to the DB
-        // Assuming you would add your DB logic here
-
+        vendorService.addInventory(inventory.getId(), inventory.getCategoryName(), inventory.getName(), inventory.getQuantity(),
+                inventory.getPrice(), inventory.getImageUrl(), inventory.getDescription());
         model.addAttribute("message", "Inventory added successfully!");
         return "inventorySuccess"; // Redirect to success page
     }

@@ -2,6 +2,7 @@ package org.springMVC.service;
 
 import org.springMVC.dao.UserDAO;
 
+import org.springMVC.exception.CustomDataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,34 +40,34 @@ public class UserService {
 //        return responseMsg;
 //    }
 
-    public UserModel getUserModelById(Integer userModelId) {
-        if (userModelId == null) {
+    public UserModel getUserById(Integer userId) {
+        if (userId == null) {
             return new UserModel();
         }
-        User userModel = this.userDAO.getUserById(userModelId);
-        UserModel userModelModel = new UserModel();
-        userModelModel.setUserId(userModel.getUserId());
-        userModelModel.setUserName(userModel.getUserName());
-        userModelModel.setUserEmail(userModel.getUserEmail());
-        return  userModelModel;
+        User user = this.userDAO.getUserById(userId);
+        UserModel userModels = new UserModel();
+        userModels.setUserId(userModel.getUserId());
+        userModels.setUserName(userModel.getUserName());
+        userModels.setUserEmail(userModel.getUserEmail());
+        return  userModels;
     }
 
-    public List<UserModel> getAllUserModels() {
-        List<User> userModels = this.userDAO.getAllUsers();
-        List<UserModel> userModelModels = new ArrayList<>();
-        for (User userModel: userModels) {
-            UserModel userModelModel = new UserModel();
+    public List<UserModel> getAllUsers()  throws CustomDataIntegrityViolationException {
+        List<User> users = this.userDAO.getAllUsers();
+        List<UserModel> userModels = new ArrayList<>();
+        for (User user: users) {
+            UserModel userModel = new UserModel();
 
 
-            userModelModel.setUserId(userModel.getUserId());
-            userModelModel.setUserName(userModel.getUserName());
-            userModelModel.setUserEmail(userModel.getUserEmail());
-            userModelModel.setUserPassword(userModel.getUserPassword());
-            userModelModel.setUserMobile(userModel.getUserMobile());
+            userModel.setUserId(userModel.getUserId());
+            userModel.setUserName(userModel.getUserName());
+            userModel.setUserEmail(userModel.getUserEmail());
+            userModel.setUserPassword(userModel.getUserPassword());
+            userModel.setUserMobile(userModel.getUserMobile());
             //userModelModel.setUserModelUserModelname(userModel.getUserModelUserModelname());
-            userModelModels.add(userModelModel);
+            userModels.add(userModel);
         }
-        return userModelModels;
+        return userModels;
     }
 
     public Optional<Object> validateUser(String email, String password, String role) {
