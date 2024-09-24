@@ -5,6 +5,7 @@ import org.springMVC.model.InventoryCategoryModel;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+
 @Component
 public interface InventoryCategoryDAO {
     Optional<InventoryCategory> findCategoryByName(String categoryName);

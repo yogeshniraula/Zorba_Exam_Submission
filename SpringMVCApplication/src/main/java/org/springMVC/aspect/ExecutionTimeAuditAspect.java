@@ -2,7 +2,9 @@ package org.springMVC.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.hibernate.SessionFactory;
 import org.springMVC.dao.ExecutionAuditCheckDAO;
+import org.springMVC.dao.ExecutionAuditCheckDAOImpl;
 import org.springMVC.entity.ExecutionAuditCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,11 @@ import org.springframework.stereotype.Component;
 public class ExecutionTimeAuditAspect {
 
     @Autowired
-    private ExecutionAuditCheckDAO executionAuditCheckDAO;
+    ExecutionAuditCheckDAO executionAuditCheckDAO;
+
+    @Autowired
+    SessionFactory sessionFactory;
+
 
     @Around("execution(* com.example.controller.*.*(..))")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {

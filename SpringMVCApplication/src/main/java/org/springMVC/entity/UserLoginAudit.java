@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "user_login_audit")
 public class UserLoginAudit {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

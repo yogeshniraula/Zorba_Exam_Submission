@@ -4,15 +4,12 @@ import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springMVC.model.UserModel;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springMVC.entity.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +18,9 @@ import java.util.Optional;
 @Repository
 
 public class UserDAOImpl implements UserDAO {
+
+    @Autowired
     private SessionFactory sessionFactory;
-    @PersistenceContext
-    private EntityManager entityManager;
 
     //constructor DI
     public UserDAOImpl(SessionFactory sessionFactory) {
@@ -102,32 +99,43 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public void deleteUserById(Integer userId){
+    public void deleteUserById(Integer userId) {
+        // Get the current session from SessionFactory
+        Session session = sessionFactory.getCurrentSession();
 
-        User user = entityManager.find(User.class, userId);
+        // Find the user by ID
+        User user = session.get(User.class, userId);
 
         // If user exists, delete it
         if (user != null) {
-            entityManager.remove(user);
+            session.delete(user);
         }
-
-
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return null;
-    }
 
     @Override
-    public Optional<Object> findByRole(String role){
+    public Optional<Object> findByUserName(String userName) {
+        Session session = sessionFactory.getCurrentSession();
+
         // Create a query to fetch users by role
         String hql = "FROM User WHERE role = :role";
-        TypedQuery<User> query = entityManager.createQuery(hql, User.class);
+        Query<User> query = session.createQuery(hql, User.class);
+        query.setParameter("userName", userName);
+
+        // Return the list of users
+        return Optional.ofNullable(query.getResultList());
+    }
+
+    @Override
+    public Optional<Object> findByRole(String role) {
+        Session session = sessionFactory.getCurrentSession();
+
+        // Create a query to fetch users by role
+        String hql = "FROM User WHERE role = :role";
+        Query<User> query = session.createQuery(hql, User.class);
         query.setParameter("role", role);
 
         // Return the list of users
         return Optional.ofNullable(query.getResultList());
-    };
-
+    }
 }

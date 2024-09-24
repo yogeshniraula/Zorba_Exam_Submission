@@ -10,6 +10,7 @@
 
 <!--    Helps us to enable @Controller annotation across application-->
     <annotation-driven/>
+
     <context:component-scan base-package="org.springMVC"/>
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/"/>
@@ -36,9 +37,32 @@
         <beans:property name="packagesToScan" value="org.springMVC.entity"/> <!-- Adjust package as needed -->
     </beans:bean>
 
+    <!-- JPA Configuration -->
+<!--    <beans:bean id="entityManagerFactory"-->
+<!--          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+<!--        <beans:property name="dataSource" ref="dataSource"/>-->
+<!--        <beans:property name="packagesToScan" value="org.springMVC.entity"/>-->
+<!--        <beans:property name="jpaVendorAdapter">-->
+<!--            <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>-->
+<!--        </beans:property>-->
+<!--        <beans:property name="jpaProperties">-->
+<!--            <beans:props>-->
+<!--                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>-->
+<!--                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop> &lt;!&ndash; for schema auto-updating &ndash;&gt;-->
+<!--                <beans:prop key="hibernate.show_sql">true</beans:prop> &lt;!&ndash; optional &ndash;&gt;-->
+<!--                <beans:prop key="hibernate.format_sql">true</beans:prop> &lt;!&ndash; optional &ndash;&gt;-->
+<!--            </beans:props>-->
+<!--        </beans:property>-->
+<!--    </beans:bean>-->
+
     <beans:bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <beans:property name="sessionFactory" ref="sessionFactory"/>
     </beans:bean>
+
+<!--    <beans:bean id="transactionManager"-->
+<!--          class="org.springframework.orm.jpa.JpaTransactionManager">-->
+<!--        <beans:property name="entityManagerFactory" ref="entityManagerFactory"/>-->
+<!--    </beans:bean>-->
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -49,8 +73,30 @@
 
 
     <beans:bean name="userDAO" class="org.springMVC.dao.UserDAOImpl">
-        <beans:constructor-arg ref="hibernateSessionFactory"/>
+        <beans:constructor-arg ref="sessionFactory"/>
     </beans:bean>
+
+    <beans:bean name="executionAuditCheckDAO" class="org.springMVC.dao.ExecutionAuditCheckDAOImpl">
+        <beans:constructor-arg ref="sessionFactory"/>
+    </beans:bean>
+
+    <beans:bean name="inventoryCategoryDAO" class="org.springMVC.dao.InventoryCategoryDAOImpl">
+        <beans:constructor-arg ref="sessionFactory"/>
+    </beans:bean>
+
+    <beans:bean name="inventoryDAO" class="org.springMVC.dao.InventoryDAOImpl">
+        <beans:constructor-arg ref="sessionFactory"/>
+    </beans:bean>
+
+    <beans:bean name="userLoginAuditDAO" class="org.springMVC.dao.UserLoginAuditDAOImpl">
+        <beans:constructor-arg ref="sessionFactory"/>
+    </beans:bean>
+
+    <beans:bean name="studDAO" class="org.springMVC.dao.StudDAOImpl">
+        <beans:constructor-arg ref="sessionFactory"/>
+    </beans:bean>
+
+
 
 </beans:beans>
 <!--    <beans:bean name="inventoryDAO" class = "org.springMVC.dao.InventoryDAOImpl">-->

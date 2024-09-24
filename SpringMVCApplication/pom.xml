@@ -95,8 +95,9 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.24</version>
+      <version>1.18.30</version>
     </dependency>
+
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -148,6 +149,13 @@
       <version>5.1.1</version> <!-- Check for the latest version -->
     </dependency>
 
+<!--    For jpa-->
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>javax.persistence-api</artifactId>
+      <version>2.2</version>
+    </dependency>
+
 
     <!--    <dependency>-->
     <!--      <groupId>com.fasterxml.jackson.core</groupId>-->
@@ -166,7 +174,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>

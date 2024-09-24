@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "inventory_category")
 public class InventoryCategory {
 

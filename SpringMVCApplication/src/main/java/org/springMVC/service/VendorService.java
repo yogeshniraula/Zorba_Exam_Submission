@@ -7,11 +7,16 @@ import org.springMVC.entity.InventoryCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 public class VendorService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private InventoryCategoryDAO categoryDAO;

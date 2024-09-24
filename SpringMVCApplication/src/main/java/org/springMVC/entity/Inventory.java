@@ -1,10 +1,12 @@
 package org.springMVC.entity;
 
+import lombok.Data;
 import org.springMVC.model.InventoryCategoryModel;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "inventory")
 public class Inventory {
 

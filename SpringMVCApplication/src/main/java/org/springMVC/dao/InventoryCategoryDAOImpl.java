@@ -17,10 +17,15 @@ public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    InventoryCategory inventoryCategory;
-    @Autowired
-    Inventory inventory;
+//    @Autowired
+//    InventoryCategory inventoryCategory;
+//    @Autowired
+//    Inventory inventory;
+
+    //constructor DI
+    public void inventoryDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Optional<InventoryCategory> findCategoryByName(String categoryName) {

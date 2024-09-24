@@ -9,12 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springMVC.entity.User;
 import org.springMVC.model.UserModel;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private UserDAO userDAO;
