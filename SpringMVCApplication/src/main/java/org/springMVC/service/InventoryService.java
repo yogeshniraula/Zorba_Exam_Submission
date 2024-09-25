@@ -19,30 +19,31 @@ import java.util.Optional;
 @Service
 public class InventoryService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-    @Autowired
     private InventoryDAO inventoryDAO;
-    @Autowired
+
     private InventoryCategoryDAO inventoryCategoryDAO;
-    @Autowired
+
     private InventoryCategoryModel inventoryCategory;
-    @Autowired
+
     private  InventoryModel inventoryModel;
+
+    public InventoryService(InventoryDAO inventoryDAO){
+        this.inventoryDAO = inventoryDAO;
+    }
 
 
     public void saveInventory(InventoryModel inventory) {
 
     }
-    public InventoryCategoryModel processCategory(String categoryName) {
+    public String processCategory(String categoryName) {
         Optional<InventoryCategory> category1 = inventoryCategoryDAO.findCategoryByName(categoryName);
 
         if (category1 == null) {
-            InventoryCategoryModel category2 = new InventoryCategoryModel(categoryName);
+            InventoryCategoryModel category2 = new InventoryCategoryModel();
             category2.setCategoryName(categoryName);
             categoryName = inventoryCategoryDAO.saveCategory(category1);
         }
-        return new InventoryCategoryModel(categoryName);
+        return categoryName;
     }
 
 
@@ -50,16 +51,22 @@ public class InventoryService {
     public List<InventoryModel> getAllInventory() throws CustomDataIntegrityViolationException {
         List<Inventory> inventoryM = this.inventoryDAO.getAllInventory();
         List<InventoryModel> inventoryModels = new ArrayList<>();
-        for (Inventory inventory: inventoryM) {
-            InventoryModel inventoryModel = new InventoryModel();
-            inventoryModel.setId(inventoryModel.getId());
-            inventoryModel.setName(inventoryModel.getName());
-            inventoryModel.setQuantity(inventoryModel.getQuantity());
-            inventoryModel.setPrice(inventoryModel.getPrice());
-            inventoryModel.setDescription(inventoryModel.getDescription());
 
+        for (Inventory inventory : inventoryM) {
+            InventoryModel inventoryModel = new InventoryModel();
+
+            // Set values from Inventory to InventoryModel
+            inventoryModel.setId(inventory.getId());  // Corrected: use inventory.getId()
+            inventoryModel.setName(inventory.getName());
+            inventoryModel.setQuantity(inventory.getQuantity());
+            inventoryModel.setPrice(inventory.getPrice());
+            inventoryModel.setDescription(inventory.getDescription());
+
+            // Add to the list
             inventoryModels.add(inventoryModel);
         }
+
         return inventoryModels;
     }
+
 }

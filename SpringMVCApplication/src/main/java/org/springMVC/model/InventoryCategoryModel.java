@@ -9,8 +9,5 @@ public class InventoryCategoryModel {
     private Long id;
     private String categoryName;
 
-    public InventoryCategoryModel(String categoryName) {
-        this.categoryName = categoryName;
-    }
 
 }

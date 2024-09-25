@@ -15,14 +15,15 @@ import java.util.Optional;
 @Service
 public class VendorService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @Autowired
     private InventoryCategoryDAO categoryDAO;
 
-    @Autowired
+
     private InventoryDAO inventoryDAO;
+
+    @Autowired
+    public VendorService(InventoryDAO inventoryDAO){
+        this.inventoryDAO = inventoryDAO;
+    }
 
     @Transactional
     public void addInventory(int id, String categoryName, String name, int quantity, Double price, String imageUrl, String description) {

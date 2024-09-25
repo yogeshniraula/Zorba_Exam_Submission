@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
 
-    @Autowired
+
     private SessionFactory sessionFactory;
 //    @Autowired
 //    InventoryCategory inventoryCategory;
@@ -23,7 +23,8 @@ public class InventoryCategoryDAOImpl implements InventoryCategoryDAO {
 //    Inventory inventory;
 
     //constructor DI
-    public void inventoryDAOImpl(SessionFactory sessionFactory) {
+    @Autowired
+    public InventoryCategoryDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

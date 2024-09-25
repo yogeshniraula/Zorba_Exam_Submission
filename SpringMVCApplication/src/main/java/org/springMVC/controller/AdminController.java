@@ -15,8 +15,12 @@ import java.util.Optional;
 @Controller
 public class AdminController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired  // Ensure the correct constructor is marked
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/adminLogin")
     public ModelAndView showLoginPage() {

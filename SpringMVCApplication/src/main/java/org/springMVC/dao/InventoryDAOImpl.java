@@ -18,6 +18,10 @@ public class InventoryDAOImpl implements InventoryDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public InventoryDAOImpl(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
+
     //constructor DI
     public void inventoryDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

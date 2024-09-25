@@ -16,12 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class VendorController {
 
     // This is a hardcoded example; in real-world, fetch from the database
-    @Autowired
+
     private UserService userService;
-    @Autowired
+
     private VendorService vendorService;
-    @Autowired
     InventoryModel inventory;
+
+    @Autowired
+    public VendorController(VendorService vendorService){
+        this.vendorService = vendorService;
+    }
 
     @GetMapping("/vendorLogin")
     public String showLoginPage() {
@@ -68,7 +72,7 @@ public class VendorController {
             return "addInventory";
         }
 
-        vendorService.addInventory(inventory.getId(), inventory.getCategoryName(), inventory.getName(), inventory.getQuantity(),
+        vendorService.addInventory(inventory.getId(), inventory.getCategory(), inventory.getName(), inventory.getQuantity(),
                 inventory.getPrice(), inventory.getImageUrl(), inventory.getDescription());
         model.addAttribute("message", "Inventory added successfully!");
         return "inventorySuccess"; // Redirect to success page

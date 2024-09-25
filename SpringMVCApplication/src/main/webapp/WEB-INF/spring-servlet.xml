@@ -71,6 +71,23 @@
     </beans:bean>
 
 
+<!--    <beans:bean id="inventoryService" class="org.springMVC.service.InventoryService" />-->
+    <beans:bean name="inventoryController" class="org.springMVC.controller.InventoryController">
+        <beans:constructor-arg ref="inventoryService"/>
+    </beans:bean>
+
+    <beans:bean name="adminController" class="org.springMVC.controller.AdminController">
+        <beans:constructor-arg ref="userService"/>
+    </beans:bean>
+
+    <beans:bean name="userController" class="org.springMVC.controller.UserController">
+        <beans:constructor-arg ref="userService"/>
+    </beans:bean>
+
+    <beans:bean name="vendorController" class="org.springMVC.controller.VendorController">
+        <beans:constructor-arg ref="vendorService"/>
+    </beans:bean>
+
 
     <beans:bean name="userDAO" class="org.springMVC.dao.UserDAOImpl">
         <beans:constructor-arg ref="sessionFactory"/>

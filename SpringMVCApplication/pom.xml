@@ -138,6 +138,8 @@
       <artifactId>poi</artifactId>
       <version>5.2.3</version> <!-- Check for the latest version -->
     </dependency>
+
+
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
@@ -154,6 +156,12 @@
       <groupId>javax.persistence</groupId>
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.4</version> <!-- Use the latest stable version -->
     </dependency>
 
 

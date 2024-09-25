@@ -24,8 +24,11 @@ import java.util.List;
 @Controller
 public class InventoryController {
 
-    @Autowired
-    private InventoryService inventoryService; // Replace with your service to save data to DB
+    private InventoryService inventoryService;// Replace with your service to save data to DB
+
+    public InventoryController(InventoryService inventoryService){
+        this.inventoryService = inventoryService;
+    }
 
     @GetMapping("/uploadRequest")
     public ModelAndView uploadReq(){

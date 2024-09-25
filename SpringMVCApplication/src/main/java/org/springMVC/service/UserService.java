@@ -18,14 +18,16 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
-    @Autowired
+
     private UserDAO userDAO;
 
-    @Autowired
     private UserModel userModel;
+
+    @Autowired
+    public UserService(UserDAO userDAO){
+        this.userDAO = userDAO;
+    }
 
 
 
